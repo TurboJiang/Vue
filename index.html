@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- vue使用时最外层统一使用一个id -->
+    <div class="" id="app">
+        <!-- {{message}}
+        <p class="coll">那小子真帅</p>-->
+
+        <!-- 令可以用于响应式地更新 HTML 特性
+         <p class="good" v-bind:class="{cool : isGood}">天气真哈皮</p>
+        <p class="good" v-bind:class="isGood ? 'cool' :'notcool'">天气哈皮波？</p> -->
+
+        <!-- 添加dom结构的方式  可动态切换class 通过activeclass值来确定是否切换
+        <p class="cool" v-bind:class="[activeClass]">那小子真帅</p> -->
+
+        <!-- 展示数组数据 -->
+        <!-- <ul>
+            一条一条展示 
+             <li>{{todos[0].text}}</li>
+        </ul> -->
+        <!-- <ul>
+             for循环dom结构
+            <li v-for="item in todos">{{item.text}}</li>
+        </ul> -->
+
+        <!-- 双向数据绑定：表单输入绑定v-model它的数据与数据源中的值实时绑定 页面上的值与input的值实时同步-->
+        <!-- <p>{{content}}</p>
+            <input type="text" v-model="content"> -->
+
+        <!-- v-on绑定click事件 -->
+        <p class="coll" v-on:click="reverseMsg">{{msg}}</p>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',//element dom结构 一般选中最外层容器，内外部都会作用到
+
+            // 数据源 将数据源渲染到页面上 {{message}}
+            data: {
+                // message: 'hello world',
+                // isGood: true,
+
+                // activeClass:'active',
+
+                // todos:[
+                //     {text:'我'},
+                //     {text:'好'},
+                //     {text:'困'}
+                // ],
+
+                content: '',
+                msg: '那小子真帅'
+            },
+            // 专门用来写方法
+            methods: {
+                reverseMsg() {
+                    //点击p标签将内容反转
+                    this.msg = this.msg.split('').reverse().join('')//this的作用域就是vue下 可以不需要修改作用域
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
