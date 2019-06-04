@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="msg">#{message#</div>
+        <div class="btn">
+            <button @click="add">add</button>
+        </div>
+    </div>
+    <script>
+        // 扩展 可以将vue外部的方法拿出来用
+        var ext = {
+            created() {
+                console.log('扩展的created')
+            },
+            methods: {
+                // 与原生方法中同名的不能生效    add()  x             
+                add1() {
+                    console.log('扩展的方法')
+                }
+            }
+        }
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    message: 'hi happy'
+                }
+            },
+            created() {
+                console.log('原生的created')
+            },
+            methods: {
+                add() {
+                    console.log('原生的方法')
+                }
+            },
+            // 扩展外部方法的属性
+            extends: ext,
+            // 用于修改插入值（{{message}}）的符号,左右两边
+            delimiters:['#{','#']
+        })
+    </script>
+</body>
+
+</html>
