@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 
+// 统一引入stylus文件
 import './common/stylus/index.styl'
 
 Vue.config.productionTip = false
-Vue.prototype.$http = axios // 将axios挂载到vue的原型链上
+// 将axois挂在到vue的原型链上 能直接使用this.$http(相当于使用axios请求数据)
+Vue.prototype.$http = axios
 
 /* eslint-disable no-new */
 new Vue({

@@ -19,3 +19,16 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+#vue项目初始化
+vue init webpack
+
+# axios安装
+npm install axios --save
+
+#better-scroll 安装(页面滑动效果)
+npm install better-scroll --save
+
+##在vue中使用stylus
+npm install stylus --save-dev
+npm install stylus-loader --save-dev
