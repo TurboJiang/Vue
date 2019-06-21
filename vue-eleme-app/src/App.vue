@@ -14,7 +14,8 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <!-- 在路由入口上传递一个名叫seller的seller接口数据  其他页面都是通过本路由入口跑起来的 seller数据就均可以使用-->
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 
@@ -34,6 +35,7 @@ export default {
   components:{
     'v-header':header
   },
+  // 获取seller接口数据
   created() {
     this.$http.get('https://www.easy-mock.com/mock/5d00f540294a6f025a3f9924/vue-eleme-app/vue-eleme-app')
         .then(res=>{
@@ -55,7 +57,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  // text-align: center;
   color: #2c3e50;
 }
 .tab {

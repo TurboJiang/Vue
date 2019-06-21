@@ -1,51 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>hashchange 实现前端路由</title>
 </head>
+
 <body>
     <a href="#top">回到首页</a>
     <!-- 实现前端路由进而实现单页应用 -->
-    <a href="javascript:;" data-href="/">home</a>
-    <a href="javascript:;" data-href="/">book</a>
-    <a href="javascript:;" data-href="/">movie</a>
+    <a href="#/">home</a>
+    <a href="#/book">book</a>
+    <a href="#/movie">movie</a>
     <div id="content"></div>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <script>
         // hashcahnge 导航 点击显示内容
-        class Router{
-            constructor(options){
+        // 返回模板的组件（函数式组件）
+        const Home = { template: '<div>home</div>' }
+        const Book = { template: '<div>book</div>' }
+        const Movie = { template: '<div>moive</div>' }
+
+        class Router {
+            constructor(options) {
+                this.routes = {} //前端路由对象
                 this.init();
+                // 将数组变成json
+                options.forEach(item => {
+                    // 每一个路由都是一个key 值设置为一个函数
+                    this.route(item.path, () => {
+                        // 将每一个路由组件赋值给获取到的dom节点（content）上
+                        document.getElementById('content').innerHTML = item.component
+                    })
+                })
+                console.log(this.routes)
+            }
+            route(path, cb) {
+                this.routes[path] = cb
             }
             // 链接点击事件
-            bindEvent(){}
-            // 初始化监听hashchage
-            init(){
-                window.addEventListener('hashchange',this.updateView.bind(this))
+            bindEvent() { }
+            // 初始化监听hashchage load；false由内向外
+            init() {
+                window.addEventListener('load',this.updateView.bind(this),false)
+                window.addEventListener('hashchange', this.updateView.bind(this))
             }
-            updateView(){
+            updateView() {
                 // console.log('updated')
                 // 获取点击的页面路径 考虑兼容性问题 没有路径则默认首页 
                 const hashTag = window.location.hash.slice(1) || '/'
+                // 若有这个路由 就执行
+                this.routes[hashTag] && this.routes[hashTag]();
             }
         }
         // 配置路由信息
         new Router([
             {
-                path:'/',
-                component:'home'
+                path: '/',
+                component: 'home'
             },
             {
-                path:'/book',
-                component:'book'
+                path: '/book',
+                component: 'book'
             },
             {
-                path:'/movie',
-                component:'movie'
+                path: '/movie',
+                component: 'movie'
             }
         ]);
     </script>
 </body>
+
 </html>
